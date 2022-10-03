@@ -1,0 +1,13 @@
+.clang-format
+.clang-tidy
+book.h.gch
+book.o
+clothing.h.gch
+clothing.o
+movie.h.gch
+movie.o
+product_parser.h.gch
+product_parser.o
+util
+util.h.gch
+util.o
