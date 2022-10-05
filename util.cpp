@@ -2,6 +2,7 @@
 #include <sstream>
 #include <cctype>
 #include <algorithm>
+#include <string>
 #include "util.h"
 
 
@@ -21,8 +22,8 @@ std::set<std::string> parseStringToWords(string rawWords)
     // parse the words and return a set of keywords
 
     set<std::string> keywords;
-
-
+    rawWords = convToLower(rawWords); // in order to make the keywords case insensitive
+    
     string current_word = "";
     int last_index = 0;
     int last_length = 1;

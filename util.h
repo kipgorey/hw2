@@ -5,8 +5,6 @@
 #include <iostream>
 #include <set>
 
-using namespace std;
-
 
 /** Complete the setIntersection and setUnion functions below
  *  in this header file (since they are templates).
@@ -16,9 +14,9 @@ template <typename T>
 std::set<T> setIntersection(std::set<T>& s1, std::set<T>& s2)
 {
   int size_before = s1.size();
-  typename set<T>::iterator itr;
+  typename std::set<T>::iterator itr;
 
-  set<T> intersection_return;
+  std::set<T> intersection_return;
 
   for(itr = s2.begin(); itr != s2.end(); itr++)
   {
@@ -41,7 +39,7 @@ std::set<T> setUnion(std::set<T>& s1, std::set<T>& s2)
 
   // run in O(nlog(n)) time
 
-  set<T> intersection_return;
+  std::set<T> intersection_return;
   
   intersection_return.insert(s1.begin(), s1.end());
   intersection_return.insert(s2.begin(), s2.end());

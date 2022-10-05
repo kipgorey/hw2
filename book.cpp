@@ -7,14 +7,14 @@
 using namespace std;
 
 
-Book::Book(const string ISBN, const string author, const string category_, const string name_, const double price_, const int qty_) : Product (category_, name_, price_, qty_)
+Book::Book(const string isbn, const string author, const string category, const string name, const double price, const int qty) : Product (category, name, price, qty)
 {
-  ISBN = ISBN;
-  author = author;
-  category_ = category_;
-  name_ = name_;
-  price_ = price_;
-  qty_ = qty_;
+  ISBN_ = isbn;
+  author_ = author;
+  category_ = category;
+  name_ = name;
+  price_ = price;
+  qty_ = qty;
 }
 
 Book::~Book()
@@ -24,9 +24,10 @@ Book::~Book()
 
 std::set<std::string> Book::keywords() const
 {
-  set<string> key_set;
-  key_set = parseStringToWords(this->author);
-  key_set.insert(this->ISBN);
+  std::set<std::string> key_set;
+  std::string combined_string = this->author_ + " " + this->name_;
+  key_set = parseStringToWords(combined_string);
+  key_set.insert(this->ISBN_);
 
   return key_set;
 }
@@ -34,7 +35,7 @@ std::set<std::string> Book::keywords() const
 std::string Book::displayString() const
 {
   string display_return = "";
-  display_return += this->name_ + "\n" + "ISBN: " + this->ISBN + " Author: " + this->author + "\n" + to_string(this->price_) + " " + to_string(this->qty_) + "left";
+  display_return += this->name_ + "\n" + "ISBN: " + this->ISBN_ + " Author: " + this->author_ + "\n" + to_string(this->price_) + " " + to_string(this->qty_) + " left";
   return display_return;
 
 }
@@ -46,8 +47,8 @@ void Book::dump(std::ostream& os) const
   os << this->name_ << endl;
   os << this->price_ << endl;
   os << this->qty_ << endl;
-  os << this->ISBN << endl;
-  os << this->author << endl;
+  os << this->ISBN_ << endl;
+  os << this->author_ << endl;
 
 }
 

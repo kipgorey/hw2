@@ -9,15 +9,15 @@ class Movie : public Product {
 
   public:
   // public variables
-    std::string genre;
-    std::string rating;
+    std::string genre_;
+    std::string rating_;
   // public functions
 
-  Movie(const std::string genre, const std::string rating, const std::string category_, const std::string name_, const double price_, const int qty_);
+  Movie(const std::string genre, const std::string rating, const std::string category, const std::string name, const double price, const int qty);
   ~Movie();
-  std::set<std::string> keywords() const;
-  std::string displayString() const;
-  void dump(std::ostream& os) const;
+  virtual std::set<std::string> keywords() const;
+  virtual std::string displayString() const;
+  virtual void dump(std::ostream& os) const;
 
   
 

@@ -9,6 +9,8 @@
 #include "db_parser.h"
 #include "product_parser.h"
 #include "util.h"
+#include "datastore.h"
+#include "mydatastore.h"
 
 using namespace std;
 struct ProdNameSorter {
@@ -31,7 +33,7 @@ int main(int argc, char* argv[])
      ****************/
     
     
-    DataStore ds;
+    MyDataStore ds;
 
 
 
@@ -102,9 +104,52 @@ int main(int argc, char* argv[])
                 done = true;
             }
 	    /* Add support for other commands here */
+            else if(cmd == "ADD")
+            {
+              string input;
+              int hit_index;
+              if(ss >> input)
+              {
+                if(ds.user_to_id.find(input) != ds.user_to_id.end())
+                {
+                  if(ss >> hit_index)
+                  {
+                    if(hit_index-1 < ds.search_hits.size())
+                    {
+                      ds.add(input, ds.search_hits[hit_index-1]); // add to the users cart
+                    }
+                  }
+                  
+                }
+              }
 
 
+            }
+            else if(cmd == "VIEWCART")
+            {
+              string input;
 
+              if(ss >> input)
+              {
+                if(ds.user_to_id.find(input) != ds.user_to_id.end())
+                {
+                  ds.view(input);
+                }
+              }
+
+            }
+            else if(cmd == "BUYCART")
+            {
+              string input;
+              if(ss >> input)
+              {
+                if(ds.user_to_id.find(input) != ds.user_to_id.end())
+                {
+                  ds.buy(input);
+                }
+              }
+
+            }
 
             else {
                 cout << "Unknown command" << endl;

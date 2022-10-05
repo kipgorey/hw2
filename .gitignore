@@ -11,3 +11,7 @@ product_parser.o
 util
 util.h.gch
 util.o
+mydatastore.h.gch
+product.h.gch
+set_test
+set_test.cpp
