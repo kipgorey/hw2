@@ -17,7 +17,7 @@ class MyDataStore : public DataStore
   public:
 
   // from datastore class
-
+    void delete_prods_users();
     void addProduct(Product* p);
     void addUser(User* u);
     std::vector<Product*> search(std::vector<std::string>& terms, int type);

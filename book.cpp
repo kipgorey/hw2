@@ -27,7 +27,7 @@ std::set<std::string> Book::keywords() const
   std::set<std::string> key_set;
   std::string combined_string = this->author_ + " " + this->name_;
   key_set = parseStringToWords(combined_string);
-  key_set.insert(this->ISBN_);
+  key_set.insert(convToLower(this->ISBN_));
 
   return key_set;
 }
@@ -35,7 +35,7 @@ std::set<std::string> Book::keywords() const
 std::string Book::displayString() const
 {
   string display_return = "";
-  display_return += this->name_ + "\n" + "ISBN: " + this->ISBN_ + " Author: " + this->author_ + "\n" + to_string(this->price_) + " " + to_string(this->qty_) + " left";
+  display_return += this->name_ + "\n" + "Author: " + this->author_ + " ISBN: " + this->ISBN_ + "\n" + to_string(this->price_) + " " + to_string(this->qty_) + " left";
   return display_return;
 
 }

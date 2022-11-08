@@ -25,9 +25,10 @@ Movie::~Movie()
 std::set<std::string> Movie::keywords() const
 {
   std::set<string> key_set;
-  std::string combined_string = this->rating_ + " " + this->name_;
-  key_set = parseStringToWords(combined_string);
-  key_set.insert(this->genre_);
+  // std::string combined_string = this->rating_ + " " + this->name_;
+  key_set = parseStringToWords(this->name_);
+  key_set.insert(convToLower(this->genre_));
+  key_set.insert(convToLower(this->rating_));
 
   return key_set;
 

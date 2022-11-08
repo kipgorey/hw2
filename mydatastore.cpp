@@ -16,7 +16,6 @@
 using namespace std;
 
 
-
 void MyDataStore::addProduct(Product *p)
 {
   keyword_map.insert({p->keywords(), p});
@@ -51,7 +50,6 @@ std::vector<Product*> MyDataStore::search(std::vector<std::string>& terms, int t
       
       if(combined.size() == temp.size())
       {
-        std::cout << "test for and" << endl;
         item_list.push_back(it->second);
       }
     }
@@ -81,7 +79,12 @@ std::vector<Product*> MyDataStore::search(std::vector<std::string>& terms, int t
 
 void MyDataStore::add(std::string usrn_, Product *p)
 {
-  cart[usrn_].push_back(p);
+  if(user_to_id.find(usrn_) != user_to_id.end())
+  {
+    cart[usrn_].push_back(p);
+  } else {
+    std::cout << "Invalid username" << endl;
+  }
 
 }
 
@@ -91,6 +94,8 @@ void MyDataStore::buy(std::string usrn_)
 
   // make an iterator to go through cart
   //
+
+  
   if(user_to_id.find(usrn_) != user_to_id.end())
   {
     double amount;
@@ -103,6 +108,7 @@ void MyDataStore::buy(std::string usrn_)
         cart[usrn_][i]->subtractQty(1); // reduce the quantity by 1
         user_to_id[usrn_]->deductAmount(amount);
         cart[usrn_].erase(cart[usrn_].begin()+i);
+        i--; // change to program
       }
       
     }
@@ -117,11 +123,15 @@ void MyDataStore::buy(std::string usrn_)
 
 void MyDataStore::view(std::string usrn_)
 {
+  int item_num = 0;
   if(user_to_id.find(usrn_) != user_to_id.end())
   {
     std::vector<Product*>::iterator itr;
     for(itr = cart[usrn_].begin(); itr != cart[usrn_].end(); itr++)
     {
+      item_num++;
+      cout << "Item ";
+      cout << item_num << endl;
       cout << (*itr)->displayString() << endl; // displays the string
     }
   } else {
@@ -131,21 +141,38 @@ void MyDataStore::view(std::string usrn_)
 
 void MyDataStore::dump(std::ostream& ofile)
 {
+  ofile << "<products>" << endl;
   std::set<Product*>::iterator itr;
   for(itr = all_products.begin(); itr != all_products.end(); itr++)
   {
     (*itr)->dump(ofile); // runs the product dump functions for each product in the cart
   }
+  ofile << "</products>" << endl;
 
+  ofile << "<users>" << endl;
   std::set<User*>::iterator it;
   for(it = all_users.begin(); it != all_users.end(); it++)
   {
     (*it)->dump(ofile);
 
   }
+  ofile << "</users>" << endl;
 
 }
 
+void MyDataStore::delete_prods_users()
+{
+  std::set<Product*>::iterator itr;
+  for(itr = all_products.begin(); itr != all_products.end(); itr++)
+  {
+    delete (*itr); // runs the product dump functions for each product in the cart
+  }
 
+  std::set<User*>::iterator it;
+  for(it = all_users.begin(); it != all_users.end(); it++)
+  {
+    delete (*it); // runs the product dump functions for each product in the cart
+  }
+}
 
 

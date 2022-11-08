@@ -106,6 +106,7 @@ int main(int argc, char* argv[])
 	    /* Add support for other commands here */
             else if(cmd == "ADD")
             {
+              bool is_valid = false;
               string input;
               int hit_index;
               if(ss >> input)
@@ -116,39 +117,52 @@ int main(int argc, char* argv[])
                   {
                     if(hit_index-1 < ds.search_hits.size())
                     {
+                      is_valid = true;
                       ds.add(input, ds.search_hits[hit_index-1]); // add to the users cart
                     }
                   }
                   
                 }
               }
+              if(is_valid == false)
+                cout << "Invalid request" << endl;
 
 
             }
             else if(cmd == "VIEWCART")
             {
+              bool is_valid = false;
               string input;
 
               if(ss >> input)
               {
                 if(ds.user_to_id.find(input) != ds.user_to_id.end())
                 {
+                  is_valid = true;
                   ds.view(input);
                 }
               }
-
+              if(is_valid == false)
+              {
+                cout << "Invalid username" << endl;
+              }
             }
             else if(cmd == "BUYCART")
             {
+              bool is_valid = false;
               string input;
               if(ss >> input)
               {
                 if(ds.user_to_id.find(input) != ds.user_to_id.end())
                 {
+                  is_valid = true;
                   ds.buy(input);
                 }
               }
-
+              if(is_valid == false)
+              {
+                cout << "Invalid username" << endl;
+              }
             }
 
             else {
@@ -157,6 +171,9 @@ int main(int argc, char* argv[])
         }
 
     }
+
+    ds.delete_prods_users();
+
     return 0;
 }
 
